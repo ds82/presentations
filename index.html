@@ -7,10 +7,16 @@
 		<title>reveal.js</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/theme/moon.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <style>
+        .reveal ol, .reveal dl, .reveal ul {
+          display: block ! important;
+        }
+    </style>
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -24,8 +30,105 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+
+				<section>
+					<h1>Code Review</h1>
+					<h2>gitlab vs. gerrit</h2>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						## gerrit
+
+						- als reines Code Review Tool gedacht (spezialisiert)
+						- hängt sich zwischen vorhandenes Repo und Benutzer
+						```none
+[Benutzer] -- push --> [Git Server]
+[Benutzer] -- push --> [Gerrit] -- push --> [Git Server]
+						```
+						- kein modernes klicki-bunti
+						- Setup relativ aufwendig
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						## gitlab
+
+						- github clone
+						- all-in-one git Lösung: User-/Rechteverwaltung + Projekte
+						- module: issues, wiki, merge requests, build-server, ..
+						- nicht auf Code Review spezialisiert ➡ Teil von `merge request` Feature
+						- ersetzt bisheriges Git Remote (git Server)
+						- Verwendung zur Arbeit mit Studenten
+
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						## Review workflow in gerrit
+
+						- lokale Entwicklung wie bisher bis Code zum Review bereit
+						- Wenn Code zum Review vorgelegt werden soll, muss er in speziellen Branch gepushed werden
+						```
+							git push gerrit lokaler-branch-name:refs/for/master%r=dsaenger
+						```
+						- Beim push *kann* auch gleich Reviewer gesetzt werden
+						- demo
+
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						## Review workflow in gitlab
+
+						- lokale Entwicklung wie bisher bis Code zum Review bereit
+						- Wenn Code zum Review vorgelegt werden soll, muss er in *irgendeinem Branch* gepusht werden
+						- ```merge request``` Absicht wird über Weboberfläche getriggered
+						- demo
+
+					</script>
+				</section>
+
+
+				<section data-markdown>
+					<script type="text/template">
+						## Vorteile gerrit
+
+						- formal korrekter
+						- man kann feingranular einstellen, wer welchen Code gesehen und wie bewertet haben muss
+						- Review Prozess ist besser dokumentiert
+<p></p>
+
+						## Nachteile gerrit
+						- workflow komplizierter
+
+
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+## Vorteile gitlab
+- moderneres Tool
+- integriert mehrere Dienste (wiki, Git-Server, Benutzerverwaltung)
+- Review Prozess einfacher
+- Verantwortlichkeit klarer
+
+<p></p>
+
+## Nachteile gitlab
+- Prozess informeller
+- Nachbearbeitung von merge requests
+- MR ohne 3rd-Party tools nur über GUI, nicht CLI
+</script>
+				</section>
+
 			</div>
 		</div>
 
